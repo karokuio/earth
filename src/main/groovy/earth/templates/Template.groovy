@@ -8,8 +8,8 @@ import groovy.transform.Immutable
  *
  * @since 0.1.0
  */
-@Immutable
-class Template {
+@Immutable(copyWith = true)
+class Template implements Serializable {
 
   /**
    * Template's id

@@ -10,6 +10,11 @@ services:
         - "9042:9042" # CQL Native transport
       volumes:
         - dbauth-data:/dataauth
+    rabbit:
+      image: rabbitmq:3.6-management
+      ports:
+        - "5672:5672"
+        - "15672:15672"
     earth:
       build: ./docker
       image: karoku-docker-public.bintray.io/earth
@@ -18,6 +23,7 @@ services:
         - "4243:4243"
       links:
         - cassandra:cassandra
+        - rabbit:rabbit
       entrypoint:
         - /home/user/dev-entrypoint.sh
       volumes:

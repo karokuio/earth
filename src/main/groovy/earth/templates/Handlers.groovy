@@ -9,7 +9,6 @@ import ratpack.form.Form
 import ratpack.form.UploadedFile
 
 import earth.util.Zip
-import earth.notifiers.Notifier
 
 /**
  * Request handlers over the {@link Template} entity
@@ -40,7 +39,6 @@ class Handlers {
    */
   static void insert(final Context ctx) {
     Repository repository = ctx.get(Repository)
-    //Notifier notifier = ctx.get(Notifier)
 
     ctx
       .parse(Form)
@@ -56,8 +54,6 @@ class Handlers {
                        description: description)
 
         repository.insert(file, template)
-      }.wiretap {
-      //notifier.event('template/created', '')
       }.then { Template template ->
         ctx.render(json(template))
       }

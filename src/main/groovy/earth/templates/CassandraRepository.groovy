@@ -7,7 +7,9 @@ import com.datastax.driver.core.Row
 import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.ResultSet
 
+import earth.util.Events
 import earth.data.Cassandra
+import earth.notifiers.Notifier
 
 /**
  * {@link Repository} implementation over an underlying Cassandra data
@@ -24,6 +26,9 @@ class CassandraRepository implements Repository {
    */
   @Inject
   Cluster cluster
+
+  @Inject
+  Notifier notifier
 
   @Override
   Promise<List<Template>> list() {
@@ -69,15 +74,17 @@ class CassandraRepository implements Repository {
     """
 
     return Cassandra
-      .executeAsync(cluster,
-                    query,
-                    uuid,
-                    template.description,
-                    template.template,
-                    file.buffer.nioBuffer())
-      .flatMap {
-        findById(uuid)
-      }
+    .executeAsync(cluster,
+                  query,
+                  uuid,
+                  template.description,
+                  template.template,
+                  file.buffer.nioBuffer())
+    .wiretap {
+      notifier.event('templates', Events.templateCreated(template.copyWith(id: uuid)))
+    }.flatMap {
+      findById(uuid)
+    }
   }
 
   private Template toTemplate(final Row row) {

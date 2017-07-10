@@ -2,3 +2,12 @@ data:
   contactPoint: cassandra
   username:
   password:
+
+events:
+  port: 5672
+  username: guest
+  password: guest
+  host: rabbit
+  pipes:
+    - templates
+    - docker
