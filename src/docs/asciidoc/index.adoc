@@ -1,0 +1,11 @@
+= Earth
+:revnumber: {releaseVersion}
+:numbered:
+:imagesDir: images/
+:baseDir: ../../..
+
+:ratpackMain: {baseDir}/src/main/groovy
+:ratpackResources: {baseDir}/src/main/resources
+:ratpackFiles: {baseDir}/src/ratpack
+:ratpackTest: {baseDir}/src/test/groovy
+:apiSnippets: {baseDir}/build/generated-snippets

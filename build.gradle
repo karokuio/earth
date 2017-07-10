@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:$ratpack_version"
+        classpath "com.github.jengelman.gradle.plugins:shadow:$shadow_plugin"
+        classpath "com.bmuschko:gradle-clover-plugin:$clover_plugin"
+        classpath "org.asciidoctor:asciidoctor-gradle-plugin:$asciidoctor"
+        classpath "org.asciidoctor:asciidoctorj-diagram:$asciidoctor_diagram"
+        classpath "org.ajoberstar:gradle-git-publish:$gradle_git"
+        classpath "com.netflix.nebula:nebula-release-plugin:$nebula_release_plugin"
+    }
+}
+
+apply plugin: 'io.ratpack.ratpack-groovy'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+apply from: 'gradle/docs.gradle'
+apply from: 'gradle/compiler.gradle'
+apply from: 'gradle/codenarc.gradle'
+//apply from: 'gradle/clover.gradle'
+apply from: 'gradle/release.gradle'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+      url 'https://repo.spring.io/release'
+    }
+}
+
+dependencies {
+    compile ratpack.dependency('guice')
+    compile ratpack.dependency('remote')
+
+    compile "org.codehaus.groovy:groovy-all:$groovy"
+    compile "ch.qos.logback:logback-classic:$logback"
+    compile "org.pac4j:pac4j-jwt:$pac4j_jwt"
+    compile "org.mindrot:jbcrypt:$bcrypt"
+    compile "io.ratpack:ratpack-pac4j:$ratpack_version"
+    compile "org.cognitor.cassandra:cassandra-migration:$cassandra_migration"
+    compile "com.datastax.cassandra:cassandra-driver-core:$cassandra_datastax"
+    compile "org.zeroturnaround:zt-zip:$zt_zip"
+
+    //  clover "org.openclover:clover:$clover"
+    asciidoctor "io.spring.asciidoctor:spring-asciidoctor-extensions:$asciidoctor_ext"
+
+    testCompile "org.spockframework:spock-core:$spock"
+    testCompile "org.spockframework:spock-guice:$spock"
+    testCompile "org.springframework.restdocs:spring-restdocs-restassured:$restdocs"
+    testCompile "junit:junit:$junit"
+    testCompile "cglib:cglib-nodep:$cglib_nodep"
+    testCompile ratpack.dependency('remote-test')
+}

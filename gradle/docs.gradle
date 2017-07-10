@@ -1,0 +1,61 @@
+apply plugin: 'org.asciidoctor.convert'
+
+/**
+ * GROOVYDOC
+ */
+sourceSets {
+  groovydoc {
+    resources {
+      srcDir folder_groovydoc
+    }
+  }
+}
+
+groovydoc {
+  link 'https://docs.oracle.com/javase/8/docs/api/', 'java'
+  link 'http://docs.groovy-lang.org/latest/html/api/', 'groovy', 'org.codehaus.groovy'
+
+  classpath = sourceSets.groovydoc.output + classpath
+  overviewText = project.resources.text.fromFile('src/docs/groovydoc/overview.html')
+}
+
+/**
+ * ASCIIDOC DOCUMENTATION
+ */
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+asciidoctor {
+  requires 'asciidoctor-diagram'
+  sourceDir = file(folder_asciidoc)
+  attributes 'source-highlighter'  :  'prettify',
+             'toc'                 :  'left',
+             'icons'               :  'font',
+             'toclevels'           :  3,
+             'snippets'            : snippetsDir,
+             'releaseVersion'      : version
+}
+
+/**
+ * DOCUMENTATION TASK NEEDED PRIOR TO PUBLISH ALL DOCUMENTATION TO
+ * GH_PAGES
+ */
+task generateSite() {
+  group "documentation"
+  description "generates Earth site (asciidoc, groovydoc and clover documentation)"
+  doLast {
+    copy {
+      from "$buildDir/docs"
+      into "$buildDir/site"
+    }
+    copy {
+      from "$buildDir/asciidoc/html5"
+      into "$buildDir/site"
+    }
+    copy {
+      from "$buildDir/reports/clover/html"
+      into "$buildDir/site/clover"
+    }
+  }
+}
