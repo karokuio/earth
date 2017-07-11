@@ -2,6 +2,7 @@ import static ratpack.groovy.Groovy.ratpack
 
 import earth.Config
 import earth.templates.Handlers as TEMPLATES
+import earth.hooks.Handlers as HOOKS
 import ratpack.server.ServerConfigBuilder
 
 ratpack {
@@ -19,6 +20,11 @@ ratpack {
           get(TEMPLATES.&list)
           post(TEMPLATES.&insert)
           delete(TEMPLATES.&delete)
+        }
+      }
+      path('hooks') {
+        byMethod {
+          post(HOOKS.&deploy)
         }
       }
     }
