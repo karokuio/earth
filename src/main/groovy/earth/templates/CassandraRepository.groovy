@@ -64,13 +64,13 @@ class CassandraRepository implements Repository {
   }
 
   @Override
-  Promise<Template> insert(UploadedFile file, final Template template) {
+  Promise<Template> insert(final Template template) {
     final UUID uuid = Cassandra.generateUUID()
     final String query = """
       INSERT INTO earth.templates
-        (id, description, template, zipfile)
+        (id, description, template)
       VALUES
-        (?, ?, ?, ?)
+        (?, ?, ?)
     """
 
     return Cassandra
@@ -78,8 +78,7 @@ class CassandraRepository implements Repository {
                   query,
                   uuid,
                   template.description,
-                  template.template,
-                  file.buffer.nioBuffer())
+                  template.template)
     .wiretap {
       notifier.event('templates', Events.templateCreated(template.copyWith(id: uuid)))
     }.flatMap {

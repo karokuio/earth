@@ -40,10 +40,9 @@ interface Repository {
 
   /**
    *
-   * @param file
    * @param template
    * @return
    * @since 0.1.0
    */
-  Promise<Template> insert(UploadedFile file, Template template)
+  Promise<Template> insert(Template template)
 }

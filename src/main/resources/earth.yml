@@ -11,3 +11,6 @@ events:
   pipes:
     - templates
     - docker
+
+storage:
+  templates: /tmp/templates

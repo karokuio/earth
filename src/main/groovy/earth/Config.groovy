@@ -21,6 +21,8 @@ class Config {
    */
   Events events
 
+  Storage storage
+
   /**
    * Underlying data store configuration
    *
@@ -91,5 +93,10 @@ class Config {
      * @since 0.1.0
      */
     List<String> pipes
+  }
+
+  static class Storage {
+
+    String templates
   }
 }

@@ -38,7 +38,7 @@ class Handlers {
    * @since 0.1.0
    */
   static void insert(final Context ctx) {
-    Repository repository = ctx.get(Repository)
+    Service service = ctx.get(Service)
 
     ctx
       .parse(Form)
@@ -53,7 +53,8 @@ class Handlers {
           new Template(template: templateText,
                        description: description)
 
-        repository.insert(file, template)
+        is.reset()
+        service.createTemplate(is, template)
       }.then { Template template ->
         ctx.render(json(template))
       }
