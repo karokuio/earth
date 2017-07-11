@@ -61,12 +61,12 @@ class Handlers {
    * @since 0.1.0
    */
   static void delete(final Context ctx) {
-    Repository repository = ctx.get(Repository)
+    Service service = ctx.get(Service)
 
     ctx
       .parse(Map)
       .flatMap {
-        repository.delete(UUID.fromString("${it.id}"))
+        service.deleteTemplate(UUID.fromString("${it.id}"))
       }.then { Template template ->
         ctx.render(json(template))
       }

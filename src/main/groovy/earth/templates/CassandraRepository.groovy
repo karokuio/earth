@@ -88,6 +88,7 @@ class CassandraRepository implements Repository {
   private Template toTemplate(final Row row) {
     return new Template(
       id: row.getUUID('id'),
+      tag: row.getString('tag'),
       description: row.getString('description'),
       template: row.getString('template'),
     )

@@ -20,4 +20,15 @@ class Events {
   static Event templateCreated(final Template template) {
     return new Event("templates.created", template)
   }
+
+  /**
+   * Creates an event when a template is deleted
+   *
+   * @param template the template deleted
+   * @return an instance of {@link Event}
+   * @since 0.1.0
+   */
+  static Event templateDeleted(final Template template) {
+    return new Event("templates.deleted", template)
+  }
 }

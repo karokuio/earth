@@ -1,6 +1,7 @@
 package earth.templates
 
 import javax.inject.Inject
+import ratpack.exec.Result
 import ratpack.exec.Promise
 import java.nio.file.Paths
 import earth.notifiers.Notifier
@@ -38,9 +39,18 @@ class ServiceImpl implements Service {
       .flatMap {
         repository.insert(template)
       }.wiretap {
-        notifier.event("templates.create",
+        notifier.event("templates.created",
                        Events.templateCreated(
                          template.copyWith(id: UUID.randomUUID())))
+      }
+  }
+
+  @Override
+  Promise<Template> deleteTemplate(UUID uuid) {
+    return repository
+      .delete(uuid)
+      .wiretap { Result<Template> result ->
+        notifier.event("templates.deleted", Events.templateDeleted(result.value))
       }
   }
 }
