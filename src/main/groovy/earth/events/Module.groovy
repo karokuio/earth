@@ -1,4 +1,4 @@
-package earth.notifiers
+package earth.events
 
 import com.google.inject.Scopes
 import com.google.inject.AbstractModule

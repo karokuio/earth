@@ -4,9 +4,8 @@ import javax.inject.Inject
 import ratpack.exec.Result
 import ratpack.exec.Promise
 import java.nio.file.Paths
-import earth.notifiers.Notifier
+import earth.events.Notifier
 import earth.storage.StorageService
-import earth.util.Events
 import earth.Config
 
 /**
@@ -40,8 +39,7 @@ class ServiceImpl implements Service {
         repository.insert(template)
       }.wiretap {
         notifier.event("templates.created",
-                       Events.templateCreated(
-                         template.copyWith(id: UUID.randomUUID())))
+                       template.copyWith(id: UUID.randomUUID()))
       }
   }
 
@@ -50,7 +48,7 @@ class ServiceImpl implements Service {
     return repository
       .delete(uuid)
       .wiretap { Result<Template> result ->
-        notifier.event("templates.deleted", Events.templateDeleted(result.value))
+        notifier.event("templates.deleted", result.value)
       }
   }
 }

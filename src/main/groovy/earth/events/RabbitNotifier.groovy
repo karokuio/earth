@@ -1,4 +1,4 @@
-package earth.notifiers
+package earth.events
 
 import javax.inject.Inject
 import com.rabbitmq.client.Channel
@@ -21,7 +21,7 @@ class RabbitNotifier implements Notifier {
   Config config
 
   @Override
-  void event(String routingKey, Event event) {
+  void event(String routingKey, Serializable event) {
     Connection connection = factory.newConnection()
     Channel channel = connection.createChannel()
     try {

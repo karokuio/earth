@@ -7,9 +7,8 @@ import com.datastax.driver.core.Row
 import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.ResultSet
 
-import earth.util.Events
 import earth.data.Cassandra
-import earth.notifiers.Notifier
+import earth.events.Notifier
 
 /**
  * {@link Repository} implementation over an underlying Cassandra data

@@ -1,4 +1,4 @@
-package earth.notifiers
+package earth.events
 
 import javax.inject.Provider
 import javax.inject.Inject

@@ -1,7 +1,7 @@
 import earth.data.DataModule
 import earth.init.InitModule
 import earth.templates.Module as TEMPLATES
-import earth.notifiers.Module as NOTIFIERS
+import earth.events.Module as NOTIFIERS
 import earth.storage.Module as STORAGE
 import earth.hooks.Module as HOOKS
 
