@@ -4,3 +4,7 @@ CREATE TABLE templates (
   description text,
   template text,
 );
+
+CREATE TABLE deployments (
+  id UUID PRIMARY KEY
+)

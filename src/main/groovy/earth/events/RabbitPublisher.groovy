@@ -8,11 +8,11 @@ import groovy.json.JsonOutput
 import earth.Config
 
 /**
- * Notifier implementation based on RabbitMQ
+ * Publisher implementation based on RabbitMQ
  *
  * @since 0.1.0
  */
-class RabbitNotifier implements Notifier {
+class RabbitPublisher implements Publisher {
 
   @Inject
   ConnectionFactory factory
@@ -21,7 +21,7 @@ class RabbitNotifier implements Notifier {
   Config config
 
   @Override
-  void event(String routingKey, Serializable event) {
+  void publish(String routingKey, Serializable event) {
     Connection connection = factory.newConnection()
     Channel channel = connection.createChannel()
     try {

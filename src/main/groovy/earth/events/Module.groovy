@@ -16,8 +16,8 @@ class Module extends AbstractModule {
     .toProvider(ConnectionFactoryProvider)
     .in(Scopes.SINGLETON)
 
-    bind(Notifier)
-    .to(RabbitNotifier)
+    bind(Publisher)
+    .to(RabbitPublisher)
     .in(Scopes.SINGLETON)
   }
 }

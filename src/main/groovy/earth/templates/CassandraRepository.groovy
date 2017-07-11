@@ -8,7 +8,6 @@ import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.ResultSet
 
 import earth.data.Cassandra
-import earth.events.Notifier
 
 /**
  * {@link Repository} implementation over an underlying Cassandra data
@@ -25,9 +24,6 @@ class CassandraRepository implements Repository {
    */
   @Inject
   Cluster cluster
-
-  @Inject
-  Notifier notifier
 
   @Override
   Promise<List<Template>> list() {
