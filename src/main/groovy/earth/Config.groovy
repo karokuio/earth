@@ -93,6 +93,8 @@ class Config {
      * @since 0.1.0
      */
     List<String> pipes
+
+    String exchange
   }
 
   static class Storage {

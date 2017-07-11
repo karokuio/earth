@@ -38,7 +38,7 @@ class ServiceImpl implements Service {
       .flatMap {
         repository.insert(template)
       }.wiretap {
-        notifier.event("templates/create",
+        notifier.event("templates.create",
                        Events.templateCreated(
                          template.copyWith(id: UUID.randomUUID())))
       }

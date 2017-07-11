@@ -32,9 +32,11 @@ class ConnectionFactoryProvider implements Provider<ConnectionFactory> {
     Config.Events rabbitConfiguration = configuration.events
     List<String> queues = rabbitConfiguration.pipes
 
-    queues.each { String queueName ->
-      channel.queueDeclare(queueName, false, false, false, null)
-    }
+    channel.exchangeDeclare(rabbitConfiguration.exchange, "topic")
+    channel.queueDeclare("templates", false, false, false, null)
+    channel.queueDeclare("docker", false, false, false, null)
+    channel.queueBind("templates", rabbitConfiguration.exchange, "templates.*")
+    channel.queueBind("docker", rabbitConfiguration.exchange, "docker.*")
 
     channel.close()
     connection.close()

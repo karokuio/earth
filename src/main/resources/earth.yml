@@ -8,6 +8,7 @@ events:
   username: guest
   password: guest
   host: rabbit
+  exchange: karoku
   pipes:
     - templates
     - docker

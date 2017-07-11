@@ -18,6 +18,6 @@ class Events {
    * @since 0.1.0
    */
   static Event templateCreated(final Template template) {
-    return new Event("templates/created", template)
+    return new Event("templates.created", template)
   }
 }
