@@ -80,9 +80,7 @@ class CassandraRepository implements Repository {
                   template.tag,
                   template.description,
                   template.template)
-    .wiretap {
-      notifier.event('templates', Events.templateCreated(template.copyWith(id: uuid)))
-    }.flatMap {
+    .flatMap {
       findById(uuid)
     }
   }
