@@ -1,5 +1,6 @@
 package earth.templates
 
+import groovy.transform.ToString
 import groovy.transform.Immutable
 
 /**
@@ -8,6 +9,7 @@ import groovy.transform.Immutable
  *
  * @since 0.1.0
  */
+@ToString
 @Immutable(copyWith = true)
 class Template implements Serializable {
 
@@ -17,6 +19,20 @@ class Template implements Serializable {
    * @since 0.1.0
    */
   UUID id
+
+  /**
+   * Docker image id
+   *
+   * @since 0.1.0
+   */
+  String tag
+
+  /**
+   * Whether the template should be used for deployment or ci
+   *
+   * @since 0.1.0
+   */
+  String type
 
   /**
    * Template's description

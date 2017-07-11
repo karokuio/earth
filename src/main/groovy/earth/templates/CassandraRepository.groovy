@@ -68,15 +68,16 @@ class CassandraRepository implements Repository {
     final UUID uuid = Cassandra.generateUUID()
     final String query = """
       INSERT INTO earth.templates
-        (id, description, template)
+        (id, tag, description, template)
       VALUES
-        (?, ?, ?)
+        (?, ?, ?, ?)
     """
 
     return Cassandra
     .executeAsync(cluster,
                   query,
                   uuid,
+                  template.tag,
                   template.description,
                   template.template)
     .wiretap {

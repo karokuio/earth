@@ -15,6 +15,8 @@ import earth.Config
  */
 class ServiceImpl implements Service {
 
+  static final TEMPLATE_FILE_SUFFIX = '.zip'
+
   @Inject
   CassandraRepository repository
 
@@ -29,8 +31,10 @@ class ServiceImpl implements Service {
 
   @Override
   Promise<Template> createTemplate(InputStream is, Template template) {
+    is.reset()
+
     return storage
-      .store(is, Paths.get(config.storage.templates, "aloha.zip"))
+      .store(is, Paths.get(config.storage.templates, "${template.tag}${TEMPLATE_FILE_SUFFIX}"))
       .flatMap {
         repository.insert(template)
       }.wiretap {

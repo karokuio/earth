@@ -45,6 +45,7 @@ dependencies {
     compile "com.datastax.cassandra:cassandra-driver-core:$cassandra_datastax"
     compile "org.zeroturnaround:zt-zip:$zt_zip"
     compile "com.rabbitmq:amqp-client:$rabbitmq"
+    compile "org.yaml:snakeyaml:$snake_yaml"
 
     //  clover "org.openclover:clover:$clover"
     asciidoctor "io.spring.asciidoctor:spring-asciidoctor-extensions:$asciidoctor_ext"

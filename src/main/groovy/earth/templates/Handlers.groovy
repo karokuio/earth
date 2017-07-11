@@ -9,6 +9,7 @@ import ratpack.form.Form
 import ratpack.form.UploadedFile
 
 import earth.util.Zip
+import earth.util.Templates
 
 /**
  * Request handlers over the {@link Template} entity
@@ -16,6 +17,8 @@ import earth.util.Zip
  * @since 0.1.0
  */
 class Handlers {
+
+  static final String KAROKU_FILE = 'karoku.yaml'
 
   /**
    * List of available {@link Template} instances
@@ -45,15 +48,8 @@ class Handlers {
       .flatMap { Form form ->
         UploadedFile file = form.file('file')
         InputStream is = file.inputStream
-        String templateText = Zip.toText(is, 'karoku.yaml')
-        is.reset()
-        String description = Zip.toText(is, 'README.md')
+        Template template = Templates.parse(Zip.toText(is, KAROKU_FILE))
 
-        Template template =
-          new Template(template: templateText,
-                       description: description)
-
-        is.reset()
         service.createTemplate(is, template)
       }.then { Template template ->
         ctx.render(json(template))

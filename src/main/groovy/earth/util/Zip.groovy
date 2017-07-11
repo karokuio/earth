@@ -18,6 +18,7 @@ class Zip {
    * @since 0.1.0
    */
   static String toText(InputStream is, String name) {
+    is.reset()
     byte[] textBytes = ZipUtil.unpackEntry(is, name)
 
     return textBytes ? new String(textBytes) : ""
