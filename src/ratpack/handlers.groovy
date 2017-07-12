@@ -3,6 +3,7 @@ import static ratpack.groovy.Groovy.ratpack
 import earth.Config
 import earth.templates.Handlers as TEMPLATES
 import earth.hooks.Handlers as HOOKS
+import earth.events.Handlers as EVENTS
 import ratpack.server.ServerConfigBuilder
 
 ratpack {
@@ -15,6 +16,7 @@ ratpack {
 
   handlers {
     prefix('api/v1') {
+      get('events', EVENTS.&all)
       path('templates') {
         byMethod {
           get(TEMPLATES.&list)
