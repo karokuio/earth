@@ -32,8 +32,11 @@ class ConnectionFactoryProvider implements Provider<ConnectionFactory> {
     channel.exchangeDeclare(config.events.publish.exchange, "topic")
     channel.queueDeclare("templates", false, false, false, null)
     channel.queueDeclare("docker", false, false, false, null)
-    channel.queueBind("templates", config.events.publish.exchange, "templates.*")
-    channel.queueBind("docker", config.events.publish.exchange, "docker.*")
+    channel.queueDeclare("events", false, false, false, null)
+
+    channel.queueBind("templates", config.events.publish.exchange, "*.templates.*")
+    channel.queueBind("docker", config.events.publish.exchange, "*.docker.*")
+    channel.queueBind("events", config.events.publish.exchange, "event.#")
 
     channel.close()
     connection.close()

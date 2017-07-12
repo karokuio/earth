@@ -38,7 +38,7 @@ class ServiceImpl implements Service {
       .flatMap {
         repository.insert(template)
       }.wiretap {
-        publisher.publish("templates.created",
+        publisher.publish("event.templates.created",
                        template.copyWith(id: UUID.randomUUID()))
       }
   }
@@ -48,7 +48,7 @@ class ServiceImpl implements Service {
     return repository
       .delete(uuid)
       .wiretap { Result<Template> result ->
-        publisher.publish("templates.deleted", result.value)
+        publisher.publish("event.templates.deleted", result.value)
       }
   }
 }

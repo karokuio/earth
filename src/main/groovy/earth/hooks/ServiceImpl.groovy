@@ -10,7 +10,7 @@ class ServiceImpl implements Service {
   Publisher publisher
 
   Promise<IntegrationType> deploy(IntegrationType type, String json) {
-    publisher.publish('deploy.queued.github', json)
+    publisher.publish('event.deploy.queued.github', json)
 
     return Promise.value(type)
   }
