@@ -26,7 +26,7 @@ class RabbitPublisher implements Publisher {
     Channel channel = connection.createChannel()
     try {
       byte[] messageBodyBytes = JsonOutput.toJson(event).bytes
-      channel.basicPublish(config.events.exchange, routingKey, null, messageBodyBytes)
+      channel.basicPublish(config.events.publish.exchange, routingKey, null, messageBodyBytes)
     } finally {
       channel.close()
       connection.close()

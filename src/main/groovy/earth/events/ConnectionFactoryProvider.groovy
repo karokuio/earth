@@ -15,28 +15,25 @@ import earth.Config
 class ConnectionFactoryProvider implements Provider<ConnectionFactory> {
 
   @Inject
-  Config configuration
+  Config config
 
   @Override
   ConnectionFactory get() {
     ConnectionFactory factory = new ConnectionFactory()
 
-    factory.setUsername(configuration.events.username)
-    factory.setPassword(configuration.events.password)
-    factory.setHost(configuration.events.host)
-    factory.setPort(configuration.events.port)
+    factory.setUsername(config.events.broker.username)
+    factory.setPassword(config.events.broker.password)
+    factory.setHost(config.events.broker.host)
+    factory.setPort(config.events.broker.port)
 
     Connection connection = factory.newConnection()
     Channel channel = connection.createChannel()
 
-    Config.Events rabbitConfiguration = configuration.events
-    List<String> queues = rabbitConfiguration.pipes
-
-    channel.exchangeDeclare(rabbitConfiguration.exchange, "topic")
+    channel.exchangeDeclare(config.events.publish.exchange, "topic")
     channel.queueDeclare("templates", false, false, false, null)
     channel.queueDeclare("docker", false, false, false, null)
-    channel.queueBind("templates", rabbitConfiguration.exchange, "templates.*")
-    channel.queueBind("docker", rabbitConfiguration.exchange, "docker.*")
+    channel.queueBind("templates", config.events.publish.exchange, "templates.*")
+    channel.queueBind("docker", config.events.publish.exchange, "docker.*")
 
     channel.close()
     connection.close()

@@ -21,6 +21,11 @@ class Config {
    */
   Events events
 
+  /**
+   * Information related to disk storage locations
+   *
+   * @since 0.1.0
+   */
   Storage storage
 
   /**
@@ -60,6 +65,28 @@ class Config {
   static class Events {
 
     /**
+     * Information related to the message broker
+     *
+     * @since 0.1.0
+     */
+    Broker broker
+
+    /**
+     * Message publishing locations
+     *
+     * @since 0.1.0
+     */
+    Publish publish
+  }
+
+  /**
+   * Information related to the message broker
+   *
+   * @since 0.1.0
+   */
+  static class Broker {
+
+    /**
      * Username of the message broker
      *
      * @since 0.1.0
@@ -86,19 +113,35 @@ class Config {
      * @since 0.1.0
      */
     Integer port
+  }
+
+  /**
+   * Information about the exchange messages are going to be published
+   *
+   * @since 0.1.0
+   */
+  static class Publish {
 
     /**
-     * List of
+     * Exchange name
      *
      * @since 0.1.0
      */
-    List<String> pipes
-
     String exchange
   }
 
+  /**
+   * Information about where files are going to be located
+   *
+   * @since 0.1.0
+   */
   static class Storage {
 
+    /**
+     * Templates path
+     *
+     * @since 0.1.0
+     */
     String templates
   }
 }

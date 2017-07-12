@@ -3,15 +3,14 @@ data:
   username:
   password:
 
-events:
-  port: 5672
-  username: guest
-  password: guest
-  host: rabbit
-  exchange: karoku
-  pipes:
-    - templates
-    - docker
-
 storage:
   templates: /tmp/templates
+
+events:
+  broker:
+    port: 5672
+    username: guest
+    password: guest
+    host: rabbit
+  publish:
+    exchange: karoku
