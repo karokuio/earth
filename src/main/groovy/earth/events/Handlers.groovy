@@ -30,15 +30,11 @@ class Handlers {
    */
   static void all(final Context ctx) {
     ConnectionFactory factory = ctx.get(ConnectionFactory)
-    Channel channel = factory.newConnection().createChannel()
+    Channel eventsChannel = factory.newConnection().createChannel()
+    Flux<Event> eventHose = createPublisherFor("events", eventsChannel)
+    ServerSentEvents sse = serverSentEvents(eventHose, Handlers.&toSSEvent)
 
-    Flux<Event> management = createPublisherFor("templates", channel)
-    Flux<Event> docker = createPublisherFor("docker", channel)
-    Flux<Event> eventHose = Flux.merge(management, docker)
-
-    ServerSentEvents allEvents = serverSentEvents(eventHose, Handlers.&toSSEvent)
-
-    ctx.render(allEvents)
+    ctx.render(sse)
   }
 
   /**
@@ -71,11 +67,12 @@ class Handlers {
                       AMQP.BasicProperties properties,
                       byte[] body) {
             sink.next(new String(body))
+            channel.basicAck(envelope.deliveryTag, false)
         }
       })
 
       sink.onDispose {
-        if (!channel.isClosed()) {
+        if (channel.isOpen()) {
           channel.close()
           channel.connection.close()
         }
