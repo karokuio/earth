@@ -4,6 +4,7 @@ import earth.Config
 import earth.templates.Handlers as TEMPLATES
 import earth.hooks.Handlers as HOOKS
 import earth.events.Handlers as EVENTS
+import earth.proxy.Handlers as PROXY
 import ratpack.server.ServerConfigBuilder
 
 ratpack {
@@ -17,6 +18,9 @@ ratpack {
   handlers {
     prefix('api/v1') {
       get('events', EVENTS.&all)
+      prefix(/::^docker.*/) {
+        all(PROXY.&proxy)
+      }
       path('templates') {
         byMethod {
           get(TEMPLATES.&list)

@@ -47,6 +47,8 @@ dependencies {
     compile "com.rabbitmq:amqp-client:$rabbitmq"
     compile "org.yaml:snakeyaml:$snake_yaml"
     compile "io.projectreactor:reactor-core:$reactor_core"
+    compile "com.netflix.ribbon:ribbon-httpclient:$netflix_ribbon"
+    compile "com.netflix.ribbon:ribbon-guice:$netflix_ribbon"
 
     //  clover "org.openclover:clover:$clover"
     asciidoctor "io.spring.asciidoctor:spring-asciidoctor-extensions:$asciidoctor_ext"
