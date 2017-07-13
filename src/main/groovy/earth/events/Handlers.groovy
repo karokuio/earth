@@ -46,7 +46,12 @@ class Handlers {
    * @since 0.1.0
    */
   static Event toSSEvent(final Event e) {
-    return e.data { String raw -> raw }
+    return e
+    .data { Map rabbitEvent ->
+      rabbitEvent.data
+    }.event { Map rabbitEvent ->
+      rabbitEvent.type
+    }
   }
 
   /**
@@ -66,7 +71,11 @@ class Handlers {
                       Envelope envelope,
                       AMQP.BasicProperties properties,
                       byte[] body) {
-            sink.next(new String(body))
+            Map event = [
+              type: envelope.routingKey,
+              data: new String(body)
+            ]
+            sink.next(event)
             channel.basicAck(envelope.deliveryTag, false)
         }
       })
