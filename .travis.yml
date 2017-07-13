@@ -16,7 +16,7 @@ services:
 script:
   - ./gradlew build final prepareDocker -PgithubToken=$GH_TOKEN
   - export EARTH_VERSION=$(git describe --abbrev=0 --tags)
-  - cd docker && docker build -t karoku-docker-docker.bintray.io/earth:$EARTH_VERSION .
+  - cd build/docker && docker build -t karoku-docker-docker.bintray.io/earth:$EARTH_VERSION .
   - docker login -u $BR_USERNAME -p $BR_API_KEY karoku-docker-docker.bintray.io
   - docker tag karoku-docker-docker.bintray.io/earth karoku-docker-docker.bintray.io/earth:$EARTH_VERSION
   - docker push karoku-docker-docker.bintray.io/earth:$EARTH_VERSION

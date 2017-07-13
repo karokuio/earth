@@ -36,8 +36,16 @@ tasks.release.dependsOn setAuthentication
  * DOCKER PRO IMAGE ARTIFACTS
  */
 task prepareDocker() {
-  copy {
-    from "$buildDir/libs/earth-${version}-all.jar"
-    into "$buildDir/docker"
+  doLast {
+    copy {
+      from("$buildDir/libs") {
+        rename '.*-.*.jar', 'earth.jar'
+      }
+      into "$buildDir/docker"
+    }
+    copy {
+      from "docker"
+      into "$buildDir/docker"
+    }
   }
 }
