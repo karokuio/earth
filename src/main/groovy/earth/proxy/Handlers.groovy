@@ -1,6 +1,5 @@
 package earth.proxy
 
-import ratpack.http.Headers
 import ratpack.http.TypedData
 import ratpack.handling.Context
 

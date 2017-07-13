@@ -14,6 +14,10 @@ import earth.Config
  */
 class ConnectionFactoryProvider implements Provider<ConnectionFactory> {
 
+  static final String QUEUE_TEMPLATES = 'templates'
+  static final String QUEUE_DOCKER = 'docker'
+  static final String QUEUE_EVENTS = 'events'
+
   @Inject
   Config config
 
@@ -30,13 +34,13 @@ class ConnectionFactoryProvider implements Provider<ConnectionFactory> {
     Channel channel = connection.createChannel()
 
     channel.exchangeDeclare(config.events.publish.exchange, "topic")
-    channel.queueDeclare("templates", false, false, false, null)
-    channel.queueDeclare("docker", false, false, false, null)
-    channel.queueDeclare("events", false, false, false, null)
+    channel.queueDeclare(QUEUE_TEMPLATES, false, false, false, null)
+    channel.queueDeclare(QUEUE_DOCKER, false, false, false, null)
+    channel.queueDeclare(QUEUE_EVENTS, false, false, false, null)
 
-    channel.queueBind("templates", config.events.publish.exchange, "*.templates.*")
-    channel.queueBind("docker", config.events.publish.exchange, "*.docker.*")
-    channel.queueBind("events", config.events.publish.exchange, "event.#")
+    channel.queueBind(QUEUE_TEMPLATES, config.events.publish.exchange, "*.templates.*")
+    channel.queueBind(QUEUE_DOCKER, config.events.publish.exchange, "*.docker.*")
+    channel.queueBind(QUEUE_EVENTS, config.events.publish.exchange, "event.#")
 
     channel.close()
     connection.close()

@@ -1,7 +1,7 @@
 package earth.templates
 
 import ratpack.exec.Promise
-import ratpack.form.UploadedFile
+
 /**
  * Data storage interactions over the {@link Template} entity
  *

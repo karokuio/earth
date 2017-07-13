@@ -18,6 +18,6 @@ class Templates {
       tag: template.id,
       type: template.type,
       description: template.description,
-      template: yaml)
+      template: yaml,)
   }
 }

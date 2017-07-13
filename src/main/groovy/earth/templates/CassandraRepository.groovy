@@ -2,7 +2,6 @@ package earth.templates
 
 import javax.inject.Inject
 import ratpack.exec.Promise
-import ratpack.form.UploadedFile
 import com.datastax.driver.core.Row
 import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.ResultSet

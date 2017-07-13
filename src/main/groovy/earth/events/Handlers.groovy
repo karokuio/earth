@@ -5,14 +5,11 @@ import static ratpack.sse.ServerSentEvents.serverSentEvents
 import ratpack.handling.Context
 import ratpack.sse.Event
 import ratpack.sse.ServerSentEvents
-
 import reactor.core.publisher.Flux
 import reactor.core.publisher.FluxSink
-import org.reactivestreams.Publisher
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Envelope
 import com.rabbitmq.client.AMQP
-import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
 import com.rabbitmq.client.DefaultConsumer
 
@@ -73,7 +70,7 @@ class Handlers {
                       byte[] body) {
             Map event = [
               type: envelope.routingKey,
-              data: new String(body)
+              data: new String(body),
             ]
             sink.next(event)
             channel.basicAck(envelope.deliveryTag, false)

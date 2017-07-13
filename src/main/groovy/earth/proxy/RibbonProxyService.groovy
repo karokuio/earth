@@ -1,6 +1,5 @@
 package earth.proxy
 
-import javax.inject.Inject
 import ratpack.exec.Promise
 import com.netflix.client.ClientFactory
 import com.netflix.niws.client.http.RestClient
@@ -39,7 +38,7 @@ class RibbonProxyService implements ProxyService {
     return Promise.value(
       new ProxyResponse(status: response.status,
                         headers: headers.collectEntries(RibbonProxyService.&toHeader) as Map<String,?>,
-                        content: ByteStreams.toByteArray(response.inputStream)))
+                        content: ByteStreams.toByteArray(response.inputStream),))
   }
 
   /**

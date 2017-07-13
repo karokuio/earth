@@ -2,8 +2,6 @@ package earth.templates
 
 import static ratpack.jackson.Jackson.json
 
-import java.nio.ByteBuffer
-
 import ratpack.handling.Context
 import ratpack.form.Form
 import ratpack.form.UploadedFile
