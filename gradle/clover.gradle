@@ -1,8 +1,0 @@
-apply plugin: 'com.bmuschko.clover'
-
-clover {
-    licenseLocation = File.createTempFile('clover', '.license').absolutePath
-    report {
-        html = true
-    }
-}

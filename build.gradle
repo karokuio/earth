@@ -21,7 +21,6 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply from: 'gradle/docs.gradle'
 apply from: 'gradle/compiler.gradle'
 apply from: 'gradle/codenarc.gradle'
-//apply from: 'gradle/clover.gradle'
 apply from: 'gradle/release.gradle'
 
 repositories {
@@ -50,7 +49,6 @@ dependencies {
     compile "com.netflix.ribbon:ribbon-httpclient:$netflix_ribbon"
     compile "com.netflix.ribbon:ribbon-guice:$netflix_ribbon"
 
-    //  clover "org.openclover:clover:$clover"
     asciidoctor "io.spring.asciidoctor:spring-asciidoctor-extensions:$asciidoctor_ext"
 
     testCompile "org.spockframework:spock-core:$spock"
