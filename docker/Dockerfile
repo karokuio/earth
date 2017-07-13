@@ -1,4 +1,5 @@
 FROM java:8
+LABEL "name"="earth"
 
 # Locale setup
 RUN apt-get update && \
