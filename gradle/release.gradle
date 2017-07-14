@@ -39,7 +39,7 @@ task prepareDocker() {
   doLast {
     copy {
       from("$buildDir/libs") {
-        rename '.*-.*.jar', 'earth.jar'
+        rename '.*-all.jar', 'earth.jar'
       }
       into "$buildDir/docker"
     }
