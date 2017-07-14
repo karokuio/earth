@@ -5,6 +5,7 @@ import com.datastax.driver.core.Cluster
 import org.cognitor.cassandra.migration.Database
 import org.cognitor.cassandra.migration.MigrationTask
 import org.cognitor.cassandra.migration.MigrationRepository
+import org.cognitor.cassandra.migration.keyspace.Keyspace
 
 /**
  * Triggers the Cassandra data migration tool
@@ -19,15 +20,6 @@ class DataMigrationService {
      * @since 0.1.2
      */
     static final String EARTH_KEYSPACE = 'earth'
-
-    /**
-     * Query to create Earth keyspace in Cassandra
-     * @since 0.1.2
-     */
-    static final String EARTH_CREATE_KEYSPACE = """
-       CREATE KEYSPACE IF NOT EXISTS $EARTH_KEYSPACE
-          WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-    """
 
     /**
      * Query to drop Earth keyspace in Cassandra
@@ -51,11 +43,8 @@ class DataMigrationService {
      * @since 0.1.2
      */
     void migrate() {
-        // migration requires the keyspace to be present
-        cluster.connect().execute(EARTH_CREATE_KEYSPACE)
-
-        // migration
-        Database databaseConnection = new Database(cluster, EARTH_KEYSPACE)
+        Keyspace earthKeyspace = new Keyspace(EARTH_KEYSPACE)
+        Database databaseConnection = new Database(cluster, earthKeyspace)
         MigrationTask migrationTask = new MigrationTask(databaseConnection, new MigrationRepository())
 
         migrationTask.migrate()

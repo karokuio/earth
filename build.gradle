@@ -25,9 +25,13 @@ apply from: 'gradle/release.gradle'
 
 repositories {
     jcenter()
+    mavenLocal()
     mavenCentral()
     maven {
       url 'https://repo.spring.io/release'
+    }
+    maven {
+      url 'https://jitpack.io'
     }
 }
 
@@ -40,7 +44,8 @@ dependencies {
     compile "org.pac4j:pac4j-jwt:$pac4j_jwt"
     compile "org.mindrot:jbcrypt:$bcrypt"
     compile "io.ratpack:ratpack-pac4j:$ratpack_version"
-    compile "org.cognitor.cassandra:cassandra-migration:$cassandra_migration"
+    //compile "org.cognitor.cassandra:cassandra-migration:$cassandra_migration"
+    compile 'com.github.mariogarcia:cassandra-migration:keyspace_creation-SNAPSHOT' // TEMPORARY
     compile "com.datastax.cassandra:cassandra-driver-core:$cassandra_datastax"
     compile "org.zeroturnaround:zt-zip:$zt_zip"
     compile "com.rabbitmq:amqp-client:$rabbitmq"
