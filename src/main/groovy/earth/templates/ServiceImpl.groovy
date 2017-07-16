@@ -4,6 +4,7 @@ import javax.inject.Inject
 import ratpack.exec.Result
 import ratpack.exec.Promise
 import java.nio.file.Paths
+import earth.events.Events
 import earth.events.Publisher
 import earth.storage.StorageService
 import earth.Config
@@ -38,8 +39,7 @@ class ServiceImpl implements Service {
       .flatMap {
         repository.insert(template)
       }.wiretap {
-        publisher.publish("event.templates.created",
-                       template.copyWith(id: UUID.randomUUID()))
+        publisher.publish(Events.TEMPLATE_CREATED, template.copyWith(id: UUID.randomUUID()))
       }
   }
 
@@ -48,7 +48,7 @@ class ServiceImpl implements Service {
     return repository
       .delete(uuid)
       .wiretap { Result<Template> result ->
-        publisher.publish("event.templates.deleted", result.value)
+        publisher.publish(Events.TEMPLATE_DELETED, result.value)
       }
   }
 }

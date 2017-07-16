@@ -6,6 +6,7 @@ import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
 import earth.Config
+import earth.events.Events
 
 /**
  * Initializes the RabbitMQ connection
@@ -38,9 +39,9 @@ class ConnectionFactoryProvider implements Provider<ConnectionFactory> {
     channel.queueDeclare(QUEUE_DOCKER, false, false, false, null)
     channel.queueDeclare(QUEUE_EVENTS, false, false, false, null)
 
-    channel.queueBind(QUEUE_TEMPLATES, config.events.publish.exchange, "*.templates.*")
-    channel.queueBind(QUEUE_DOCKER, config.events.publish.exchange, "*.docker.*")
-    channel.queueBind(QUEUE_EVENTS, config.events.publish.exchange, "event.#")
+    channel.queueBind(QUEUE_TEMPLATES, config.events.publish.exchange, Events.TEMPLATE_ALL)
+    channel.queueBind(QUEUE_DOCKER, config.events.publish.exchange, Events.DOCKER_ALL)
+    channel.queueBind(QUEUE_EVENTS, config.events.publish.exchange, Events.ALL)
 
     channel.close()
     connection.close()
