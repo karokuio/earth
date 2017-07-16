@@ -12,14 +12,14 @@ class Events {
    *
    * @since 0.1.0
    */
-  static final String ALL = '*.event.#'
+  static final String ALL = 'event.#'
 
   /**
    * All Docker related events
    *
    * @since 0.1.0
    */
-  static final String DOCKER_ALL = '*.docker.*'
+  static final String DOCKER_ALL = '*.docker.#'
 
   /**
    * All Karoku template's related events

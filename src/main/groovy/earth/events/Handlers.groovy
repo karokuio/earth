@@ -28,7 +28,7 @@ class Handlers {
   static void all(final Context ctx) {
     ConnectionFactory factory = ctx.get(ConnectionFactory)
     Channel eventsChannel = factory.newConnection().createChannel()
-    Flux<Event> eventHose = createPublisherFor("events", eventsChannel)
+    Flux<Event> eventHose = createPublisherFor(Queues.EVENTS, eventsChannel)
     ServerSentEvents sse = serverSentEvents(eventHose, Handlers.&toSSEvent)
 
     ctx.render(sse)
