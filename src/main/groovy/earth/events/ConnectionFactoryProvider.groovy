@@ -6,7 +6,6 @@ import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
 import earth.Config
-import earth.events.Events
 
 /**
  * Initializes the RabbitMQ connection
