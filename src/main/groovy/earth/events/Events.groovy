@@ -45,9 +45,10 @@ class Events {
   static final String TEMPLATE_DELETED = 'event.template.deleted'
 
   /**
-   * Event produced when a web hook from Github has been triggered
+   * Event produced when a deployment from a Github web hook has been
+   * triggered
    *
    * @since 0.1.0
    */
-  static final String WHOOK_GITHUB_REQUESTED = 'event.wbook.github.requested'
+  static final String DEPLOY_GITHUB_REQUESTED = 'event.deployment.github.requested'
 }

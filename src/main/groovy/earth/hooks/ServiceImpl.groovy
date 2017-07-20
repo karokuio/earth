@@ -12,7 +12,7 @@ class ServiceImpl implements Service {
 
   @Override
   Promise<IntegrationType> deploy(IntegrationType type, String json) {
-    publisher.publish(Events.WHOOK_GITHUB_REQUESTED, json)
+    publisher.publish(Events.DEPLOY_GITHUB_REQUESTED, json)
 
     return Promise.value(type)
   }
